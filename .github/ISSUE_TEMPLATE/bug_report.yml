@@ -1,0 +1,35 @@
+name: Bug report
+description: Something in the template does not work as documented.
+labels: [bug]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. melos bootstrap
+        2. cd apps/app && flutter run --flavor dev --dart-define-from-file=config/dev.json
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Output of `flutter --version`, the platform/device, and the commit you are on.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant output. Remove tokens, URLs with credentials and personal data first.
+      render: text

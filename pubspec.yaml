@@ -1,0 +1,112 @@
+name: flutter_template_workspace
+description: Workspace root for the Flutter monorepo template.
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+# Pub workspace members. Globs require Dart 3.11+.
+workspace:
+  - apps/*
+  - packages/*
+
+dev_dependencies:
+  melos: ^8.9.0
+  very_good_analysis: ^11.0.0
+  yaml: ^3.1.3
+
+melos:
+  repository: https://github.com/Neosoft-Private-Limited/flutter_template
+
+  ide:
+    intellij:
+      enabled: false
+
+  command:
+    bootstrap:
+      # `melos bootstrap` runs `dart pub get` once for the whole workspace.
+      runPubGetInParallel: false
+
+  scripts:
+    # --- Setup ---------------------------------------------------------------
+    get:
+      description: Resolve dependencies for the whole workspace.
+      run: flutter pub get
+
+    clean:
+      description: Remove build outputs and tool caches in every package.
+      exec:
+        command: flutter clean
+        concurrency: 1
+
+    # --- Formatting ----------------------------------------------------------
+    format:
+      description: Format all Dart files.
+      run: dart format .
+
+    format:check:
+      description: Fail if any Dart file is not formatted.
+      run: dart format --output=none --set-exit-if-changed .
+
+    # --- Analysis ------------------------------------------------------------
+    analyze:
+      description: Analyze every package and tool/; infos and warnings fail the run.
+      steps:
+        - melos run analyze:packages
+        - dart analyze --fatal-infos tool
+
+    analyze:packages:
+      description: Run flutter analyze in every workspace package.
+      exec:
+        command: flutter analyze --no-pub --fatal-infos --fatal-warnings
+        concurrency: 1
+        failFast: true
+
+    # --- Code generation -----------------------------------------------------
+    codegen:
+      description: Regenerate localization files (flutter gen-l10n).
+      exec:
+        command: flutter gen-l10n
+        concurrency: 1
+        failFast: true
+      packageFilters:
+        fileExists: l10n.yaml
+
+    codegen:check:
+      description: Fail if generated localization files are out of date.
+      run: dart run tool/check_codegen.dart
+
+    # --- Tests ---------------------------------------------------------------
+    test:
+      description: Run unit and widget tests in every package (dependency order).
+      exec:
+        command: flutter test --no-pub --reporter=compact
+        concurrency: 1
+        failFast: true
+        orderDependents: true
+
+    test:coverage:
+      description: Run tests with coverage; writes coverage/lcov.info per package.
+      exec:
+        command: flutter test --no-pub --coverage --reporter=compact
+        concurrency: 1
+        failFast: true
+        orderDependents: true
+
+    test:integration:
+      description: Run app integration tests on a connected device (DEVICE=<id> optional).
+      run: dart run tool/run_integration_tests.dart
+
+    # --- Checks --------------------------------------------------------------
+    check:packages:
+      description: Verify every workspace package has tests and no forbidden dependencies.
+      run: dart run tool/check_packages.dart
+
+    validate:
+      description: Run the full local quality gate (same checks as CI).
+      steps:
+        - melos run check:packages
+        - melos run format:check
+        - melos run codegen:check
+        - melos run analyze
+        - melos run test

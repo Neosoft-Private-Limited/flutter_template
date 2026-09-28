@@ -1,0 +1,4 @@
+// Values for the "staging" flavor. Edit here, not in Xcode.
+APP_DISPLAY_NAME = Template Staging
+PRODUCT_BUNDLE_IDENTIFIER = com.app.flutter-template.staging
+// DEVELOPMENT_TEAM = YOUR_TEAM_ID

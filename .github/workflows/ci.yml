@@ -1,79 +1,136 @@
 name: CI
+
+# Quality gate for every pull request and for main. Needs no secrets, so it
+# also runs for pull requests from forks.
 on:
   pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Keep in sync with the "Flutter" row in README.md.
+  FLUTTER_VERSION: "3.47.5"
+
 jobs:
-  lint-test-build-android:
-    name: Lint, Test And Build Android
+  quality:
+    name: Format, analyze, test
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
 
-      - name: 'Install Tools'
-        run: |
-            ./.github/workflows/scripts/install-tools.sh
+      - name: Resolve workspace dependencies
+        run: flutter pub get --enforce-lockfile
 
-      - name: 'Bootstrap Workspace'
-        run: melos bootstrap
+      - name: Package rules
+        run: dart run melos run check:packages
 
-      - name: Setup app_secrets.dart
-        env:
-          APP_SECRETS: ${{ secrets.APP_SECRETS }}
-          APP_SECRETS_PATH: app/lib/secrets/app_secrets.dart
-        run: echo -n $APP_SECRETS | base64 --decode > $APP_SECRETS_PATH
+      - name: Formatting
+        run: dart run melos run format:check
 
-      - name: Get Dependencies
-        run: melos run get
+      - name: Generated code is up to date
+        run: dart run melos run codegen:check
 
-      - name: Run build_runner
-        run: melos run generate
+      - name: Static analysis
+        run: dart run melos run analyze
 
-      - name: Lint
-        run: melos run analyze
+      - name: Unit and widget tests (with coverage)
+        run: dart run melos run test:coverage
 
-#      - name: Unit tests
-#        run: melos run test-golden
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: coverage
+          path: |
+            apps/*/coverage/lcov.info
+            packages/*/coverage/lcov.info
+          if-no-files-found: warn
 
-      - name: Build Android
-        run: scripts/build.sh apk dev --debug
-        working-directory: app/
+  build-android:
+    name: Build Android
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get --enforce-lockfile
+
+      - name: Debug APK (dev)
+        working-directory: apps/app
+        run: flutter build apk --debug --flavor dev --dart-define-from-file=config/dev.json
+
+      # Compiles the release configuration (R8, obfuscation). Without signing
+      # secrets Gradle falls back to the debug key; this APK is not shippable.
+      - name: Release APK compile check (staging)
+        working-directory: apps/app
+        run: >-
+          flutter build apk --release --flavor staging
+          --dart-define-from-file=config/staging.json
+          --obfuscate --split-debug-info=build/debug-info
 
   build-ios:
-    name: Build iOS
+    name: Build iOS (no codesign)
+    needs: quality
     runs-on: macos-latest
-    needs: [ lint-test-build-android ]
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
 
-      - name: 'Install Tools'
-        run: |
-            ./.github/workflows/scripts/install-tools.sh
+      - run: flutter pub get --enforce-lockfile
 
-      - name: 'Bootstrap Workspace'
-        run: melos bootstrap
+      - name: Debug build (dev)
+        working-directory: apps/app
+        run: flutter build ios --debug --no-codesign --flavor dev --dart-define-from-file=config/dev.json
 
-      - name: Setup app_secrets.dart
-        env:
-          APP_SECRETS: ${{ secrets.APP_SECRETS }}
-          APP_SECRETS_PATH: app/lib/secrets/app_secrets.dart
-        run: echo -n $APP_SECRETS | base64 --decode > $APP_SECRETS_PATH
+  build-web:
+    name: Build web
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Get Dependencies
-        run: melos run get
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
 
-      - name: Run build_runner
-        run: melos run generate
+      - run: flutter pub get --enforce-lockfile
 
-#      - name: Golden tests
-#        run: melos run test-golden
-
-      - name: Build iOS
-        run: scripts/build.sh ios dev --debug --no-codesign
-        working-directory: app/
+      - name: Release build (staging configuration)
+        working-directory: apps/app
+        run: flutter build web --release --dart-define-from-file=config/staging.json

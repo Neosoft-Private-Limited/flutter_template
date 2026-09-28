@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "app (dev)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "apps/app",
+      "program": "lib/main.dart",
+      "args": ["--flavor", "dev", "--dart-define-from-file=config/dev.json"]
+    },
+    {
+      "name": "app (staging)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "apps/app",
+      "program": "lib/main.dart",
+      "args": ["--flavor", "staging", "--dart-define-from-file=config/staging.json"]
+    },
+    {
+      "name": "app (prod, profile)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "apps/app",
+      "program": "lib/main.dart",
+      "flutterMode": "profile",
+      "args": ["--flavor", "prod", "--dart-define-from-file=config/prod.json"]
+    },
+    {
+      "name": "app (web, dev)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "apps/app",
+      "program": "lib/main.dart",
+      "deviceId": "chrome",
+      "args": ["--dart-define-from-file=config/dev.json"]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "@@locale": "en",
+  "appTitle": "Flutter Template",
+  "@appTitle": {
+    "description": "Application name shown in the task switcher and app bar."
+  },
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom navigation label for the home tab."
+  },
+  "navPosts": "Posts",
+  "@navPosts": {
+    "description": "Bottom navigation label for the posts tab."
+  },
+  "navSettings": "Settings",
+  "@navSettings": {
+    "description": "Bottom navigation label for the settings tab."
+  },
+  "homeTitle": "Components",
+  "@homeTitle": {
+    "description": "Title of the design system showcase screen."
+  },
+  "homeIntro": "A neutral starting point. Replace this screen with your first feature.",
+  "@homeIntro": {
+    "description": "Introductory text on the showcase screen."
+  },
+  "buttonsSection": "Buttons",
+  "@buttonsSection": {
+    "description": "Section heading for button examples."
+  },
+  "primaryAction": "Primary",
+  "@primaryAction": {
+    "description": "Label of the primary button example."
+  },
+  "secondaryAction": "Secondary",
+  "@secondaryAction": {
+    "description": "Label of the secondary button example."
+  },
+  "textAction": "Text",
+  "@textAction": {
+    "description": "Label of the text button example."
+  },
+  "loadingLabel": "Loading",
+  "@loadingLabel": {
+    "description": "Accessibility label announced while content or an action is loading."
+  },
+  "formSection": "Form validation",
+  "@formSection": {
+    "description": "Section heading for the form example."
+  },
+  "emailLabel": "Email",
+  "@emailLabel": {
+    "description": "Label of the email field."
+  },
+  "emailHint": "name@example.com",
+  "@emailHint": {
+    "description": "Hint text of the email field."
+  },
+  "passwordLabel": "Password",
+  "@passwordLabel": {
+    "description": "Label of the password field."
+  },
+  "submitAction": "Submit",
+  "@submitAction": {
+    "description": "Label of the form submit button."
+  },
+  "formValid": "Form is valid",
+  "@formValid": {
+    "description": "Confirmation shown after a valid form submission."
+  },
+  "validationRequired": "This field is required",
+  "@validationRequired": {
+    "description": "Validation error for an empty required field."
+  },
+  "validationInvalidEmail": "Enter a valid email address",
+  "@validationInvalidEmail": {
+    "description": "Validation error for a malformed email."
+  },
+  "validationTooShort": "Use at least {min} characters",
+  "@validationTooShort": {
+    "description": "Validation error for a value that is too short.",
+    "placeholders": {
+      "min": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  "dialogSection": "Dialogs",
+  "@dialogSection": {
+    "description": "Section heading for the dialog example."
+  },
+  "showDialogAction": "Show dialog",
+  "@showDialogAction": {
+    "description": "Button that opens the example dialog."
+  },
+  "dialogTitle": "Discard changes?",
+  "@dialogTitle": {
+    "description": "Title of the example confirmation dialog."
+  },
+  "dialogMessage": "This example dialog has no side effects.",
+  "@dialogMessage": {
+    "description": "Body of the example confirmation dialog."
+  },
+  "confirmAction": "Confirm",
+  "@confirmAction": {
+    "description": "Confirm button label in dialogs."
+  },
+  "cancelAction": "Cancel",
+  "@cancelAction": {
+    "description": "Cancel button label in dialogs."
+  },
+  "dialogConfirmed": "Confirmed",
+  "@dialogConfirmed": {
+    "description": "Message shown after confirming the example dialog."
+  },
+  "dialogCancelled": "Cancelled",
+  "@dialogCancelled": {
+    "description": "Message shown after cancelling the example dialog."
+  },
+  "statesSection": "States",
+  "@statesSection": {
+    "description": "Section heading for empty/error state examples."
+  },
+  "postsTitle": "Posts",
+  "@postsTitle": {
+    "description": "Title of the posts screen."
+  },
+  "postsEmptyTitle": "No posts yet",
+  "@postsEmptyTitle": {
+    "description": "Title shown when the posts list is empty."
+  },
+  "postsEmptyMessage": "New posts will appear here.",
+  "@postsEmptyMessage": {
+    "description": "Message shown when the posts list is empty."
+  },
+  "postsCachedNotice": "Showing saved posts. Pull to refresh when you are back online.",
+  "@postsCachedNotice": {
+    "description": "Banner shown when posts come from the offline cache."
+  },
+  "postTitle": "Post {id}",
+  "@postTitle": {
+    "description": "Title of the post detail screen.",
+    "placeholders": {
+      "id": {
+        "type": "int",
+        "example": "42"
+      }
+    }
+  },
+  "retryAction": "Retry",
+  "@retryAction": {
+    "description": "Button that retries a failed operation."
+  },
+  "errorTitle": "Something went wrong",
+  "@errorTitle": {
+    "description": "Generic error title."
+  },
+  "errorNetwork": "You appear to be offline. Check your connection and try again.",
+  "@errorNetwork": {
+    "description": "Error shown when the device cannot reach the server."
+  },
+  "errorTimeout": "The server took too long to respond. Please try again.",
+  "@errorTimeout": {
+    "description": "Error shown when a request times out."
+  },
+  "errorServer": "The server could not handle the request. Please try again later.",
+  "@errorServer": {
+    "description": "Error shown for unexpected server responses."
+  },
+  "errorNotFound": "We could not find what you were looking for.",
+  "@errorNotFound": {
+    "description": "Error shown when a resource does not exist."
+  },
+  "errorUnauthorized": "Your session has expired. Please sign in again.",
+  "@errorUnauthorized": {
+    "description": "Error shown when the server rejects the credentials."
+  },
+  "errorParsing": "We received an unexpected response from the server.",
+  "@errorParsing": {
+    "description": "Error shown when a payload cannot be parsed."
+  },
+  "errorUnknown": "Something unexpected happened. Please try again.",
+  "@errorUnknown": {
+    "description": "Fallback error message."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Title of the settings screen."
+  },
+  "themeSection": "Theme",
+  "@themeSection": {
+    "description": "Section heading for the theme selector."
+  },
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "Theme option that follows the device setting."
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Light theme option."
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Dark theme option."
+  },
+  "languageSection": "Language",
+  "@languageSection": {
+    "description": "Section heading for the language selector."
+  },
+  "languageSystem": "Device language",
+  "@languageSystem": {
+    "description": "Language option that follows the device locale."
+  },
+  "aboutSection": "About this build",
+  "@aboutSection": {
+    "description": "Section heading for build information."
+  },
+  "environmentLabel": "Environment",
+  "@environmentLabel": {
+    "description": "Label for the build environment (dev, staging, prod)."
+  },
+  "apiLabel": "API",
+  "@apiLabel": {
+    "description": "Label for the API base URL."
+  },
+  "dataSection": "Data",
+  "@dataSection": {
+    "description": "Section heading for local data actions."
+  },
+  "clearDataAction": "Clear local data",
+  "@clearDataAction": {
+    "description": "Button that removes local data."
+  },
+  "clearDataMessage": "Removes the saved session, cached content and preferences from this device.",
+  "@clearDataMessage": {
+    "description": "Explanation shown before clearing local data."
+  },
+  "clearDataDone": "Local data cleared",
+  "@clearDataDone": {
+    "description": "Confirmation after clearing local data."
+  },
+  "notFoundTitle": "Page not found",
+  "@notFoundTitle": {
+    "description": "Title of the page shown for unknown links."
+  },
+  "notFoundMessage": "The link you followed may be broken or the page may have been removed.",
+  "@notFoundMessage": {
+    "description": "Message shown for unknown links."
+  },
+  "goHomeAction": "Go to home",
+  "@goHomeAction": {
+    "description": "Button that navigates to the home screen."
+  },
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "Name of the language in its own language (not translated)."
+  },
+  "languageSpanish": "Español",
+  "@languageSpanish": {
+    "description": "Name of the language in its own language (not translated)."
+  }
+}

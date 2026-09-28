@@ -1,0 +1,25 @@
+# Shared analyzer configuration for every package in the workspace.
+# Packages do not need their own analysis_options.yaml; the analyzer walks up
+# to this file. Add a package-level file only for a justified exception.
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/build/**"
+    - "**/*.g.dart"
+    - "**/generated/**"
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    # Surface these as errors so they cannot be ignored in review.
+    invalid_annotation_target: error
+    missing_required_param: error
+    missing_return: error
+
+linter:
+  rules:
+    # Doc comments are required on the public API of shared packages by review,
+    # not by the linter: app code would otherwise need boilerplate docs.
+    public_member_api_docs: false

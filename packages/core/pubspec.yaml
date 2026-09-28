@@ -1,0 +1,16 @@
+name: core
+description: Framework-agnostic building blocks shared by every package - results, failures, configuration, logging and validation.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+resolution: workspace
+
+dependencies:
+  logging: ^1.3.0
+  meta: ^1.17.0
+
+dev_dependencies:
+  test: ^1.26.0

@@ -1,0 +1,35 @@
+name: app
+description: Example application for the Flutter monorepo template.
+publish_to: none
+
+# versionName+versionCode. The release workflow reads this value.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+
+resolution: workspace
+
+dependencies:
+  core: any
+  design_system: any
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3
+  go_router: ^18.0.1
+  localization: any
+  logging: ^1.3.0
+  material_ui: ^1.4.0
+  networking: any
+  storage: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  mocktail: ^1.0.5
+
+flutter:
+  uses-material-design: true
