@@ -1,0 +1,22 @@
+name: database
+description: Local relational storage with drift (SQLite) - schema, DAOs and migrations owned in one place.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+
+resolution: workspace
+
+dependencies:
+  drift: ^2.35.0
+  drift_flutter: ^0.3.1
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  build_runner: ^2.16.1
+  drift_dev: ^2.35.0
+  flutter_test:
+    sdk: flutter

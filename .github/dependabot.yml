@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # GitHub Actions are pinned to commit SHAs; Dependabot keeps them current.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Dart/Flutter dependencies of the whole pub workspace (root lockfile).
+  - package-ecosystem: pub
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5

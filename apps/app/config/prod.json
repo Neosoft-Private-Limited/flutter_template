@@ -1,0 +1,6 @@
+{
+  "APP_ENV": "prod",
+  "API_BASE_URL": "https://api.example.com",
+  "LOG_LEVEL": "warning",
+  "NETWORK_LOGS": "false"
+}

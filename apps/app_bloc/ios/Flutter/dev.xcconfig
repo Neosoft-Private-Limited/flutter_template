@@ -1,0 +1,4 @@
+// Values for the "dev" flavor. Edit here, not in Xcode.
+APP_DISPLAY_NAME = Bloc Template Dev
+PRODUCT_BUNDLE_IDENTIFIER = com.app.flutter-template.bloc.dev
+// DEVELOPMENT_TEAM = YOUR_TEAM_ID

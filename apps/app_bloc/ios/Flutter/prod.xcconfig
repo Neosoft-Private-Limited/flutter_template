@@ -1,0 +1,4 @@
+// Values for the "prod" flavor. Edit here, not in Xcode.
+APP_DISPLAY_NAME = Bloc Template
+PRODUCT_BUNDLE_IDENTIFIER = com.app.flutter-template.bloc
+// DEVELOPMENT_TEAM = YOUR_TEAM_ID

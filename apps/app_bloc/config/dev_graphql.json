@@ -1,0 +1,7 @@
+{
+  "APP_ENV": "dev",
+  "API_BASE_URL": "https://jsonplaceholder.typicode.com",
+  "GRAPHQL_URL": "https://graphqlzero.almansi.me/api",
+  "LOG_LEVEL": "debug",
+  "NETWORK_LOGS": "true"
+}

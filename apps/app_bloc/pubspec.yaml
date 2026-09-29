@@ -1,0 +1,40 @@
+name: app_bloc
+description: Example application using flutter_bloc for state management. Same screens as apps/app (Riverpod); keep the one that fits your team.
+publish_to: none
+
+# versionName+versionCode. The release workflow reads this value.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+
+resolution: workspace
+
+dependencies:
+  app_foundation: any
+  bloc: ^9.2.1
+  core: any
+  database: any
+  design_system: any
+  feature_posts: any
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  go_router: ^18.0.1
+  localization: any
+  logging: ^1.3.0
+  material_ui: ^1.4.0
+  networking: any
+  storage: any
+
+dev_dependencies:
+  bloc_test: ^10.0.0
+  drift: ^2.35.0
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,15 @@
+{
+  "dart.lineLength": 80,
+  "editor.formatOnSave": true,
+  "[dart]": {
+    "editor.rulers": [80],
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "search.exclude": {
+    "**/build": true,
+    "**/.dart_tool": true,
+    "**/lib/src/generated": true
+  }
+}

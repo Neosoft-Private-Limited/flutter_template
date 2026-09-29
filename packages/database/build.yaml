@@ -1,0 +1,12 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # Human-readable ISO-8601 timestamps; sort correctly as text.
+          store_date_time_values_as_text: true
+          # Used by `dart run drift_dev make-migrations` (see README).
+          databases:
+            app_database: lib/src/app_database.dart
+          schema_dir: drift_schemas/
+          test_dir: test/drift/

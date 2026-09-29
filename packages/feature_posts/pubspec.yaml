@@ -1,0 +1,28 @@
+name: feature_posts
+description: Example feature shared by the apps - posts domain, REST and GraphQL data sources, drift-backed offline cache, repository and stateless widgets. No state management.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+
+resolution: workspace
+
+dependencies:
+  app_foundation: any
+  core: any
+  database: any
+  design_system: any
+  flutter:
+    sdk: flutter
+  localization: any
+  logging: ^1.3.0
+  material_ui: ^1.4.0
+  meta: ^1.17.0
+  networking: any
+
+dev_dependencies:
+  drift: ^2.35.0
+  flutter_test:
+    sdk: flutter

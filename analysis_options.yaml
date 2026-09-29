@@ -1,0 +1,121 @@
+# Shared analyzer configuration for every workspace member.
+#
+# Base: very_good_analysis (211 lint rules, strict language modes). On top of
+# it this file (1) enables the remaining compatible lint rules, (2) raises
+# important diagnostics to errors so they show as errors in the IDE, and
+# (3) forbids `// ignore:` for rules that guard correctness and security.
+# CI additionally runs `flutter analyze --fatal-infos --fatal-warnings`, so
+# every remaining info fails the build too.
+#
+# Packages inherit this file automatically. `apps/*/analysis_options.yaml`
+# relax only `public_member_api_docs` (see docs/development.md#lint-rules).
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/build/**"
+    - "**/*.g.dart"
+    - "**/generated/**"
+
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+  errors:
+    # --- Correctness ---------------------------------------------------------
+    close_sinks: error
+    dead_code: error
+    discarded_futures: error
+    invalid_annotation_target: error
+    invalid_use_of_protected_member: error
+    invalid_use_of_visible_for_testing_member: error
+    missing_required_param: error
+    missing_return: error
+    no_dynamic_casts: error
+    unawaited_futures: error
+    unnecessary_null_comparison: error
+    unrelated_type_equality_checks: error
+    collection_methods_unrelated_type: error
+    use_build_context_synchronously: error
+
+    # --- Type safety ---------------------------------------------------------
+    avoid_dynamic_calls: error
+    no_raw_types: error
+    strict_top_level_inference: error
+    unsafe_variance: error
+
+    # --- Hygiene -------------------------------------------------------------
+    avoid_print: error
+    deprecated_member_use: error
+    deprecated_member_use_from_same_package: error
+    unused_element: error
+    unused_field: error
+    unused_import: error
+    unused_local_variable: error
+    unnecessary_ignore: error
+
+    # --- Project conventions ------------------------------------------------
+    always_use_package_imports: error
+    public_member_api_docs: warning
+
+  # These can never be silenced with `// ignore:`; fix the code instead.
+  cannot-ignore:
+    - avoid_dynamic_calls
+    - avoid_print
+    - close_sinks
+    - collection_methods_unrelated_type
+    - discarded_futures
+    - invalid_use_of_protected_member
+    - invalid_use_of_visible_for_testing_member
+    - no_dynamic_casts
+    - unawaited_futures
+    - unrelated_type_equality_checks
+    - use_build_context_synchronously
+
+formatter:
+  page_width: 80
+  trailing_commas: automate
+
+linter:
+  rules:
+    # --- Enabled on top of very_good_analysis --------------------------------
+    # Stable rules very_good_analysis leaves out (or disables).
+    avoid_annotating_with_dynamic: true
+    avoid_implementing_value_types: true
+    close_sinks: true
+    do_not_use_environment: true
+    library_names: true
+    no_dynamic_casts: true
+    no_raw_types: true
+    no_runtimetype_tostring: true
+    prefer_expression_function_bodies: true
+    prefer_for_elements_to_map_fromiterable: true
+    prefer_iterable_wheretype: true
+    prefer_void_to_null: true
+    unreachable_from_main: true
+    use_decorated_box: true
+    # Newer (experimental) rules with a clear safety benefit.
+    annotate_redeclares: true
+    avoid_futureor_void: true
+    unnecessary_async: true
+    unsafe_variance: true
+    var_with_no_type_annotation: true
+
+    # Required for shared packages; apps relax it in their own
+    # analysis_options.yaml.
+    public_member_api_docs: true
+
+    # --- Deliberately not enabled --------------------------------------------
+    # always_specify_types, prefer_double_quotes, prefer_relative_imports,
+    # unnecessary_final, specify_nonobvious_local_variable_types,
+    # omit_obvious_property_types: contradict very_good_analysis choices
+    # (omit_local_variable_types, prefer_single_quotes,
+    # always_use_package_imports, prefer_final_locals,
+    # type_annotate_public_apis).
+    # always_put_control_body_on_new_line: forbids `if (x) return;` guards.
+    # avoid_classes_with_only_static_members: the token and constant
+    #   namespaces (AppSpacing, AppRoutes, ConfigKeys) are intentional.
+    # diagnostic_describe_all_properties: debug-only boilerplate on every
+    #   widget.
+    # use_primary_constructors: experimental; revisit when stable.

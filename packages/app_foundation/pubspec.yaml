@@ -1,0 +1,27 @@
+name: app_foundation
+description: State-management-neutral app shell shared by the example apps - startup, configuration, error handling, session, settings persistence and shared screens.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+
+resolution: workspace
+
+dependencies:
+  core: any
+  database: any
+  design_system: any
+  flutter:
+    sdk: flutter
+  localization: any
+  logging: ^1.3.0
+  material_ui: ^1.4.0
+  networking: any
+  storage: any
+
+dev_dependencies:
+  drift: ^2.35.0
+  flutter_test:
+    sdk: flutter

@@ -1,0 +1,6 @@
+{
+  "APP_ENV": "dev",
+  "API_BASE_URL": "https://jsonplaceholder.typicode.com",
+  "LOG_LEVEL": "debug",
+  "NETWORK_LOGS": "true"
+}
